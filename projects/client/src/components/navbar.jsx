@@ -23,10 +23,10 @@ import { HamburgerIcon, CloseIcon, Icon } from "@chakra-ui/icons";
 
 import { RegistrationForm } from "../components/registerForm";
 import { LoginForm } from "../components/loginForm";
-import { SearchBar } from "../components/searchbar";
+// import { SearchBar } from "../components/searchbar";
 import logo_gmedsnial from "../assets/svg/logogmedsnial1.png";
 import { useEffect, useState } from "react";
-import MyAccount from "../pages/userProfile/account";
+import MyAccount from "../pages/user/profile/account";
 
 //imprt redux
 import { useDispatch, useSelector } from "react-redux";
@@ -41,10 +41,10 @@ import {
 
 import { clear } from "../redux/cartSlice";
 // import { logout } from "../redux/userSlice";
-import { login } from "../redux/userSlice";
+// import { login } from "../redux/userSlice";
 
 export const Navbar = () => {
-  let navbarIcon = "black";
+  // let navbarIcon = "black";
   const { isOpen, onToggle } = useDisclosure();
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     console.log("role", user.value.role);
-    if (user.value.role == 2) {
+    if (user.value.role === 2) {
       navigate("/admin/dashboard");
     }
     console.log("value", user.value.id);
@@ -86,14 +86,14 @@ export const Navbar = () => {
     <>
       <Box>
         <Flex
-          // bg={useColorModeValue("blue.50", "blue.100")}
-          // color={useColorModeValue("gray.600", "white")}
+          bg={useColorModeValue("blue.50", "blue.100")}
+          color={useColorModeValue("gray.600", "white")}
           minH={"60px"}
           py={{ base: 2 }}
           px={{ base: 4 }}
           borderBottom={3}
           borderStyle={"solid"}
-          // borderColor={useColorModeValue("gray.200", "gray.900")}
+          borderColor={useColorModeValue("black")}
           align={"center"}
         >
           <Flex
@@ -147,7 +147,7 @@ export const Navbar = () => {
               ) : (
                 ""
               )}
-              <SearchBar />
+              {/* <SearchBar /> */}
               {isLogin ? (
                 <div>
                   <Menu direction="row">
@@ -163,8 +163,12 @@ export const Navbar = () => {
                       <MenuItem onClick={() => handleAccount()}>
                         My Account
                       </MenuItem>
-                      <MenuItem>Cart</MenuItem>
-                      <MenuItem>Transaction</MenuItem>
+                      <MenuItem onClick={() => navigate("/change-password")}>
+                        Change Password
+                      </MenuItem>
+                      <MenuItem onClick={() => navigate("/mytransaction")}>
+                        Transaction
+                      </MenuItem>
                       <MenuItem onClick={() => handleLogOut()}>
                         Log Out
                       </MenuItem>

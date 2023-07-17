@@ -8,7 +8,9 @@ const user = db.User;
 module.exports = {
   getAddress: async (req, res) => {
     try {
+
       const { userId } = req;
+      console.log(userId);
       // console.log(getData);
       let data = await address.findAll({
         where: {
@@ -24,7 +26,8 @@ module.exports = {
         data,
       });
     } catch (error) {
-      res.status(400).send({
+      console.log(error)
+      res.status(500).send({
         message: error.message,
         data: error,
       });
@@ -33,7 +36,7 @@ module.exports = {
   postAddress: async (req, res) => {
     try {
       let {
-        detail,
+        address_name,
         province_name,
         province_id,
         city_name,
@@ -42,10 +45,10 @@ module.exports = {
         label,
         postal_code,
       } = req.body;
-      console.log(req.body);
+      console.log("body", req.body);
       let { userId } = req;
       let data = await address.create({
-        detail,
+        address_name,
         province_name,
         province_id,
         city_name,
@@ -71,7 +74,7 @@ module.exports = {
     try {
       const { userId } = req;
       const {
-        detail,
+        address_name,
         province_name,
         province_id,
         city_name,
@@ -83,7 +86,7 @@ module.exports = {
 
       await address.update(
         {
-          detail,
+          address_name,
           province_name,
           province_id,
           city_name,
@@ -115,6 +118,22 @@ module.exports = {
       res.status(500).json({
         message: "Error",
       });
+    }
+  },
+  deleteAddress: async (req, res) => {
+    try {
+      const data = await address.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      if (data) {
+        return res.status(200).json({ message: "Delete address successfully" });
+      } else {
+        return res.status(200).json({ message: "Address not found" });
+      }
+    } catch (error) {
+      return res.status(500).json({ status: "failed", message: error });
     }
   },
 };

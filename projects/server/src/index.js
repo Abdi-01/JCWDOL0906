@@ -20,7 +20,6 @@ app.get("/api", (req, res) => {
 
 const authRouter = require("./router/authRouter");
 app.use("/api/auth", authRouter);
-
 const productRouter = require("./router/productRouter");
 app.use("/api", productRouter);
 // const authRouter= require("./router/authRouter");
@@ -39,6 +38,10 @@ app.get("/api/greetings", (req, res, next) => {
   });
 });
 
+const rajaOngkirRouter = require("./router/rajaOngkirRouter");
+app.use("/api/shipping", rajaOngkirRouter);
+// const transactionRouter = require("./router/transactionRouter");
+// app.use("api/transaction", transactionRouter);
 // NOTE : Add your routes here
 
 // for (let routes in router.routes) {
@@ -85,7 +88,7 @@ app.listen(PORT, (err) => {
   if (err) {
     console.log(`ERROR: ${err}`);
   } else {
-    db.sequelize.sync({ alter: true });
+    // db.sequelize.sync({ alter: true });
     console.log(`APP RUNNING at ${PORT} ✅`);
   }
 });

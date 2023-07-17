@@ -331,7 +331,6 @@ const ProductList = () => {
         }}
         Submit={() => updateDetailProduct()}
       />
-
       <ModalProductUnit
         Title="Product Unit"
         Open={modalUnits.isOpen}

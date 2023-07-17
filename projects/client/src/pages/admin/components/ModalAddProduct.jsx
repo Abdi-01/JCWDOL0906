@@ -28,6 +28,7 @@ const ModalAddProduct = ({
   Submit,
   categories,
   setNewProduct,
+  setCategory,
 }) => {
   return (
     <>
@@ -40,14 +41,12 @@ const ModalAddProduct = ({
             <FormControl isInvalid={isError}>
               <FormLabel>Product Name</FormLabel>
               <Input type="text" placeholder="Product Name" id="product_name" />
-
               {isError ? (
                 <FormErrorMessage>Field is required.</FormErrorMessage>
               ) : (
                 ""
               )}
             </FormControl>
-
             <FormControl>
               <FormLabel> Category </FormLabel>
               <Select id="category_id">
