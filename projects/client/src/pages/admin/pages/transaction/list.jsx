@@ -41,7 +41,6 @@ const TransactionList = () => {
       key: 'selection'
     }
   ])
-  console.log('date', range)
 
   const getData = async () => {
     let params = "";
