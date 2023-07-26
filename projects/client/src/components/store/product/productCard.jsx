@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 import { apiRequest } from '../../../helper/api';
 
 
-function ProductCard({ image, product_name, price, id, category, description, dose, indication, rules, unit, category_id }) {
+function ProductCard({ image, product_name, price, id, category, description, dose, indication, rules, unit, category_id, qty }) {
     const toast = useToast()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -126,6 +126,13 @@ function ProductCard({ image, product_name, price, id, category, description, do
                         <Box fontSize="md" color={useColorModeValue('gray.800', 'white')}>
 
                             {rupiah(price)}
+                        </Box>
+                    </Flex>
+                    <Flex justifyContent="space-between" alignContent="center">
+                        {/* <Rating rating={data.rating} numReviews={data.numReviews} /> */}
+                        <Box fontSize="md" color={useColorModeValue('gray.800', 'white')}>
+
+                            Stock : {qty}
                         </Box>
                     </Flex>
 

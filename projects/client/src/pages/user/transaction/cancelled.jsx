@@ -107,18 +107,14 @@ const Cancelled = () => {
                                             </CardHeader>
                                             <CardBody>
                                                 <Stack direction='row' h='100px'>
-                                                    <VStack>
-                                                        <Heading size='sm'>Metode Pembayaran : Bank Transfer</Heading>
-                                                        <Flex w='100%' justify='space-between'>
-                                                            <Center>
-                                                                <Image src='https://www.bca.co.id/-/media/Feature/Header/Header-Logo/logo-bca.svg?v=1' />
-                                                            </Center>
-
-                                                            <Center>
-                                                                <Heading size='sm'> 72345678911</Heading>
-                                                            </Center>
-                                                        </Flex>
-                                                    </VStack>
+                                                    <Center>
+                                                        {code === i.transaction_code ? <>
+                                                            <Button mr={2} colorScheme='blue' onClick={() => getDetailTransaction(i.transaction_code)}>Detail</Button>
+                                                        </> : <>
+                                                            <Button mr={2} colorScheme='blue' onClick={() => getDetailTransaction(i.transaction_code)}>Detail</Button>
+                                                        </>
+                                                        }
+                                                    </Center>
 
                                                     <Divider orientation='vertical' />
                                                     <Center>
@@ -128,19 +124,7 @@ const Cancelled = () => {
                                                 </Stack>
                                             </CardBody>
                                             <CardFooter>
-                                                {code === i.transaction_code ? <>
-                                                    <Button mr={2} colorScheme='blue' onClick={() => getDetailTransaction(i.transaction_code)}>Detail</Button>
-                                                    <Flex>
-                                                        <Input type='file' id={i.transaction_code} onChange={(e) => uploadBukti(e.target)} />
-                                                        <Button ml={2} colorScheme='red' onClick={() => setCode("")}>X</Button>
-                                                    </Flex>
-                                                    <Button ml={2} colorScheme='red' onClick={() => cancelTransaction(i.transaction_code)}><Icon as={BsTrash} h={5} w={5} alignSelf={'center'} /></Button>
-                                                </> : <>
-                                                    <Button mr={2} colorScheme='blue' onClick={() => getDetailTransaction(i.transaction_code)}>Detail</Button>
-                                                    <Button variant='outline' colorScheme='blue' onClick={() => { setCode(i.transaction_code); setTransactionId(i.id) }}>Upload Receipt</Button>
-                                                    <Button ml={2} colorScheme='red' onClick={() => cancelTransaction(i.transaction_code)}><Icon as={BsTrash} h={5} w={5} alignSelf={'center'} /></Button>
-                                                </>
-                                                }
+
                                             </CardFooter>
                                         </Card>
                                     )}
