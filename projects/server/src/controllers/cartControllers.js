@@ -7,7 +7,7 @@ const user = db.User;
 const stock = db.stock;
 const { QueryTypes } = require("sequelize");
 const { sequelize } = require("../models");
-const { calculatePrescription } = require("../helpers/units");
+const { calculatePrescription, updateStock, addStock } = require("../helpers/units");
 
 module.exports = {
   getAll: async (req, res) => {
@@ -53,7 +53,6 @@ module.exports = {
         },
       });
 
-      // 
 
       if (!isExists) {
         const user_id = req.userId;
@@ -65,6 +64,11 @@ module.exports = {
           price,
           total_price,
         });
+
+        //update stock setelah product di tambahkan k dalam cart
+        const updatedStock = Number(stocks) - 1
+        await addStock(product_id, updatedStock);
+        //=========================================
         res
           .status(200)
           .json(successResponse("add to cart success", null, null));
@@ -113,12 +117,18 @@ module.exports = {
       const { dataValues } = isExists;
 
       let qty = 0;
+      let updatedStock = 0
       if (req.body.method === "plus") {
         qty = Number(dataValues.qty) + 1;
+        updatedStock = Number(stocks) - 1
       } else {
-        Number(dataValues.qty) > 1
-          ? (qty = Number(dataValues.qty - 1))
-          : (qty = Number(dataValues.qty));
+        if (Number(dataValues.qty) > 1) {
+          qty = Number(dataValues.qty - 1)
+          updatedStock = Number(stocks) + 1
+        } else {
+          qty = Number(dataValues.qty)
+          updatedStock = Number(stocks)
+        }
       }
 
       if (qty > Number(stocks))
@@ -135,6 +145,9 @@ module.exports = {
           },
         }
       );
+
+
+      await addStock(req.params.id, updatedStock);
 
       res
         .status(200)

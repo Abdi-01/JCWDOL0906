@@ -222,9 +222,9 @@ module.exports = {
       sort = `ts.transaction_code ASC`;
     }
     if (req.query.startDate && param !== "") {
-      param += ` AND createdAt BETWEEN '${req.query.startDate}%' AND '${req.query.endDate}%'`
+      param += ` AND ts.createdAt BETWEEN '${req.query.startDate}%' AND '${req.query.endDate}%'`
     } else if (req.query.startDate) {
-      param += ` WHERE createdAt BETWEEN '${req.query.startDate}' AND '${req.query.endDate}%'`
+      param += ` WHERE ts.createdAt BETWEEN '${req.query.startDate}%' AND '${req.query.endDate}%'`
     }
 
 
@@ -236,7 +236,7 @@ module.exports = {
       SELECT ts.*,usr.username FROM 
       Transactions ts 
       JOIN Users usr ON usr.id=ts.user_id
-            ${param}
+      ${param}
       ORDER BY ${sort}
       LIMIT ${pageSize}
       OFFSET ${(page - 1) * pageSize}

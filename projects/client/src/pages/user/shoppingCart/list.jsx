@@ -287,6 +287,7 @@ const List = () => {
                       rules={i.rules}
                       unit={i.defaultUnit}
                       category_id={i.category_id}
+                      qty={i.defaultQty}
                     />
                   ))
                   : recomendItem.map((i, index) => (
@@ -303,6 +304,7 @@ const List = () => {
                       rules={i.rules}
                       unit={i.defaultUnit}
                       category_id={i.category_id}
+                      qty={i.defaultQty}
                     />
                   ))}
               </Grid>
